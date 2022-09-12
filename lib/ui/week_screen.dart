@@ -3,6 +3,7 @@ import 'package:mealplan/models/plan.dart';
 import 'package:mealplan/models/week_plan.dart';
 import 'package:mealplan/ui/days_of_week.dart';
 import 'package:mealplan/ui/meal_icons.dart';
+import 'package:mealplan/ui/settings_screen.dart';
 import 'package:provider/provider.dart';
 
 class WeekScreen extends StatelessWidget {
@@ -32,31 +33,47 @@ class WeekScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return const Center(
-              child: Text('An error has occurred!'),
+              child: Text('Er is iets mis gegaan!'),
             );
           } else if (snapshot.hasData) {
             return Scaffold(
                 key: scaffoldKey,
                 drawer: Drawer(
-
                     child: ListView(
                       padding: EdgeInsets.zero,
                       children: [
+                        const DrawerHeader(
+                          decoration: BoxDecoration(
+                            color: Colors.lightGreen,
+                          ),
+                          child: Text('Maaltijdplan v0.0.5'),
+                        ),
                         ListTile(
                             leading: const Icon(Meal.food),
-                            title: const Text("Refresh"),
+                            title: const Text("Ververs data"),
                             onTap: ()  {
                               Provider.of<WeekPlan>(context, listen: false).fetch().then((value) => null);
                               scaffoldKey.currentState?.closeDrawer();
                             }),
                         ListTile(
                             leading: const Icon(Meal.arrow_back),
-                            title: const Text('Previous week'),
+                            title: const Text('Vorige week'),
                             onTap: () => {prevWeek()}),
                         ListTile (
                             leading: const Icon(Meal.arrow_forward),
-                            title: const Text('Next week'),
+                            title: const Text('Volgende week'),
                             onTap: () => {nextWeek()}),
+                        ListTile (
+                            leading: const Icon(Meal.meat),
+                            title: const Text('Instellingen'),
+                            onTap: () => {
+                            Navigator.push(
+                            context,
+                              MaterialPageRoute<void>(
+                              builder: (BuildContext context) =>
+                                  const SettingScreen(),
+                              fullscreenDialog: true,
+                            ),)}),
                       ],)
                 ),
                 appBar: AppBar(

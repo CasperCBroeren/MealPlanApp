@@ -6,15 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:mealplan/models/meal_planned.dart';
 import 'package:mealplan/models/plan.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class WeekPlan extends ChangeNotifier {
-  final headers = {
-    'x-account': 'JoyCas',
-    'Content-Type': 'application/json; charset=UTF-8',
-  };
-  Future<List<Plan>> fetch() async {
+  final String defaultAccount = 'public';
 
+  Future<List<Plan>> fetch() async {
+    final prefs = await SharedPreferences.getInstance();
+    final headers = {
+      'x-account': prefs.getString('account') ?? defaultAccount,
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
     final response = await http
         .get(Uri.parse('https://mealplaapi.azurewebsites.net/weekPlan'),
         headers: headers);
@@ -54,12 +57,18 @@ class WeekPlan extends ChangeNotifier {
     plan.items.removeAt(indexOfDay);
     plan.items.insert(indexOfDay, item);
 
-    http.put(Uri.parse('https://mealplaapi.azurewebsites.net/mealPlan'),
-        headers: headers,
-        body: item.toJson())
-        .then((response) => {
-      notifyListeners()
-    });
+    SharedPreferences.getInstance().then((prefs) =>
+    {
+        http.put(Uri.parse('https://mealplaapi.azurewebsites.net/mealPlan'),
+                headers:  {
+                    'x-account': prefs.getString('account') ?? defaultAccount,
+                    'Content-Type': 'application/json; charset=UTF-8',
+                },
+                body: item.toJson())
+                    .then((response) => {
+                notifyListeners()
+                })});
+
 
   }
 
