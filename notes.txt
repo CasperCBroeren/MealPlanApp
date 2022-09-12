@@ -1,0 +1,13 @@
+- Flutter en custom fonts is best uitdaging
+https://www.fluttericon.com/
+https://www.freecodecamp.org/news/how-to-add-custom-icons-to-your-flutter-application/
+flutter build web --web-renderer html
+
+- Flutter state
+Voor snel veranderende widgets..StatefulWidget
+Voor application state Provider met Consumer widget :)
+
+Maar vooral StatelessWidget voor het meeste
+
+Todo;
+- Sockets

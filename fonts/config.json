@@ -1,0 +1,46 @@
+{
+  "name": "Meal",
+  "css_prefix_text": "",
+  "css_use_suffix": false,
+  "hinting": true,
+  "units_per_em": 1000,
+  "ascent": 850,
+  "glyphs": [
+    {
+      "uid": "76063d5f73feb53f6f154971aea5da66",
+      "css": "meat",
+      "code": 59964,
+      "src": "rpgawesome"
+    },
+    {
+      "uid": "d6c37ff60e02f259af1970f97c9ce537",
+      "css": "fish",
+      "code": 62840,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "9679450eec893098c6c2aa00ce99b50b",
+      "css": "leaf-1",
+      "code": 61548,
+      "src": "fontawesome5"
+    },
+    {
+      "uid": "30b79160618d99ce798e4bd11cafe3fe",
+      "css": "food",
+      "code": 61685,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "2799c57f6de779678d46786054fb2dc3",
+      "css": "arrow_back",
+      "code": 59392,
+      "src": "material"
+    },
+    {
+      "uid": "7362a605c268424e1ad473245ab339a1",
+      "css": "arrow_forward",
+      "code": 59393,
+      "src": "material"
+    }
+  ]
+}
