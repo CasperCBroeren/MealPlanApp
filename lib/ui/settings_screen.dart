@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:mealplan/models/week_plan.dart';
-import 'package:mealplan/ui/settings_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
@@ -19,23 +18,23 @@ class SettingScreenState extends State<SettingScreen>
   void initState()
   {
     super.initState();
-    SharedPreferences.getInstance().then((pref) => {
-      accountSetting = pref.getString('account') ?? 'public'
+    loadSettings();
+  }
+
+  Future<void> loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      accountSetting = (prefs.getString('account') ?? 'public');
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    String? accountSetting = "boo";
-    SharedPreferences.getInstance().then((pref) {
-      accountSetting = pref.getString("account");
-    });
-
 
     void saveClick(BuildContext context) async {
       final prefs = await SharedPreferences.getInstance();
-      await prefs.setString("account", accountSetting ?? "public");
+      await prefs.setString("account", accountSetting);
       Provider.of<WeekPlan>(context, listen: false).fetch().then((value) => null);
       Navigator.pop(context);
     }
