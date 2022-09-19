@@ -37,8 +37,8 @@ class Meal {
   static const _kFontFam = 'Meal';
   static const String? _kFontPkg = null;
 
-  static const IconData arrow_back = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData arrow_forward = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrowBack = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrowForward = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData meat = IconData(0xea3c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData leaf_1 = IconData(0xf06c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData food = IconData(0xf0f5, fontFamily: _kFontFam, fontPackage: _kFontPkg);

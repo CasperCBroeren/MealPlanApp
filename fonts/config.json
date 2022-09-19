@@ -32,13 +32,13 @@
     },
     {
       "uid": "2799c57f6de779678d46786054fb2dc3",
-      "css": "arrow_back",
+      "css": "arrowBack",
       "code": 59392,
       "src": "material"
     },
     {
       "uid": "7362a605c268424e1ad473245ab339a1",
-      "css": "arrow_forward",
+      "css": "arrowForward",
       "code": 59393,
       "src": "material"
     }

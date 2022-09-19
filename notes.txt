@@ -8,6 +8,7 @@ Voor snel veranderende widgets..StatefulWidget
 Voor application state Provider met Consumer widget :)
 
 Maar vooral StatelessWidget voor het meeste
+Vergeet niet de override initState waar je van de state van je statefull naar de stateless kan brengen
 
 Todo;
 - Sockets

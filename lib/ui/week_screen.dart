@@ -60,11 +60,11 @@ class WeekScreen extends StatelessWidget {
                           scaffoldKey.currentState?.closeDrawer();
                         }),
                     ListTile(
-                        leading: const Icon(Meal.arrow_back),
+                        leading: const Icon(Meal.arrowBack),
                         title: Text(AppLocalizations.of(context)!.prevWeek),
                         onTap: () => {prevWeek()}),
                     ListTile(
-                        leading: const Icon(Meal.arrow_forward),
+                        leading: const Icon(Meal.arrowForward),
                         title: Text(AppLocalizations.of(context)!.nextWeek),
                         onTap: () => {nextWeek()}),
                     ListTile(
