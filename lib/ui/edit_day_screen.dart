@@ -15,13 +15,16 @@ class EditDayScreen extends StatefulWidget {
 }
 
 class EditDayScreenState extends  State<EditDayScreen> {
+
+
+
   @override
   void initState()
   {
     super.initState();
     newDescription = widget.mealPlanned.description;
     newType = widget.mealPlanned.type;
-    day = widget.mealPlanned.day;
+    day =  widget.mealPlanned.day;
     date = widget.mealPlanned.date;
   }
   String day = "";
@@ -39,10 +42,32 @@ class EditDayScreenState extends  State<EditDayScreen> {
        Navigator.pop(context);
     }
 
+    String getDayTranslated(BuildContext context, String day)
+    {
+      switch(day)
+      {
+        case "zondag":
+        case "sunday":  return AppLocalizations.of(context)!.sunday;
+        case "maandag":
+        case "monday":  return AppLocalizations.of(context)!.monday;
+        case "dinsdag":
+        case "tuesday":  return AppLocalizations.of(context)!.tuesday;
+        case "woensdag":
+        case "wednesday":  return AppLocalizations.of(context)!.wednesday;
+        case "donderdag":
+        case "thursday":  return AppLocalizations.of(context)!.thursday;
+        case "vrijdag":
+        case "friday":  return AppLocalizations.of(context)!.friday;
+        case "zaterdag":
+        case "saturday":  return AppLocalizations.of(context)!.saturday;
+        default: return "??";
+      }
+    }
+
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.lime,
-            title: Text('${AppLocalizations.of(context)!.planFor} $day'),
+            title: Text('${AppLocalizations.of(context)!.planFor} ${getDayTranslated(context, day)}'),
             automaticallyImplyLeading: false),
         body: SingleChildScrollView(
             child: Container(

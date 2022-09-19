@@ -11,5 +11,12 @@
   "prevWeek": "Vorige week",
   "mealsOfWeek": "Maaltijden week ",
   "failedToLoad": "Het laden van de plannen is mislukt",
-  "generalError": "Er is iets mis gegaan!"
+  "generalError": "Er is iets mis gegaan!",
+  "sunday": "zondag",
+  "monday": "maandag",
+  "tuesday": "dinsdag",
+  "wednesday": "woensdag",
+  "thursday": "donderdag",
+  "friday": "vrijdag",
+  "saturday": "zaterdag"
 }

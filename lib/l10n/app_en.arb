@@ -11,5 +11,12 @@
   "prevWeek": "Previous week",
   "mealsOfWeek": "Meals week ",
   "failedToLoad": "Failed to load plans",
-  "generalError": "Something went wrong!"
+  "generalError": "Something went wrong!",
+  "sunday": "sunday",
+  "monday": "monday",
+  "tuesday": "tuesday",
+  "wednesday": "wednesday",
+  "thursday": "thursday",
+  "friday": "friday",
+  "saturday": "saturday"
 }

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 
 class MealPlanned {
+
   const MealPlanned(this.day, this.date, this.type, this.description);
 
   final String day;
