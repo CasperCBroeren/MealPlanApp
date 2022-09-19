@@ -1,0 +1,15 @@
+{
+  "planFor": "Plan voor",
+  "mealDescription": "Maaltijd beschrijving",
+  "save": "Opslaan",
+  "back": "<< Terug",
+  "account": "Account",
+  "settings": "Instellingen",
+  "applicationTitle": "Maaltijdplan",
+  "refreshData": "Ververs data",
+  "nextWeek": "Volgende week",
+  "prevWeek": "Vorige week",
+  "mealsOfWeek": "Maaltijden week ",
+  "failedToLoad": "Het laden van de plannen is mislukt",
+  "generalError": "Er is iets mis gegaan!"
+}

@@ -5,6 +5,7 @@ import 'package:mealplan/ui/days_of_week.dart';
 import 'package:mealplan/ui/meal_icons.dart';
 import 'package:mealplan/ui/settings_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeekScreen extends StatelessWidget {
   const WeekScreen({Key? key}) : super(key: key);
@@ -17,7 +18,8 @@ class WeekScreen extends StatelessWidget {
     const pageTurnDuration = Duration(milliseconds: 500);
     const pageTurnCurve = Curves.ease;
     void prevWeek() {
-      pageController.previousPage(duration: pageTurnDuration, curve: pageTurnCurve);
+      pageController.previousPage(
+          duration: pageTurnDuration, curve: pageTurnCurve);
     }
 
     void nextWeek() {
@@ -32,78 +34,81 @@ class WeekScreen extends StatelessWidget {
         future: Provider.of<WeekPlan>(context, listen: false).fetch(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Center(
-              child: Text('Er is iets mis gegaan!'),
+            return Center(
+              child: Text(AppLocalizations.of(context)!.generalError),
             );
           } else if (snapshot.hasData) {
             return Scaffold(
                 key: scaffoldKey,
                 drawer: Drawer(
                     child: ListView(
-                      padding: EdgeInsets.zero,
-                      children: [
-                        const DrawerHeader(
-                          decoration: BoxDecoration(
-                            color: Colors.lightGreen,
-                          ),
-                          child: Text('Maaltijdplan v0.0.5'),
-                        ),
-                        ListTile(
-                            leading: const Icon(Meal.food),
-                            title: const Text("Ververs data"),
-                            onTap: ()  {
-                              Provider.of<WeekPlan>(context, listen: false).fetch().then((value) => null);
-                              scaffoldKey.currentState?.closeDrawer();
+                  padding: EdgeInsets.zero,
+                  children: [
+                      DrawerHeader(
+                      decoration: const BoxDecoration(
+                        color: Colors.lightGreen,
+                      ),
+                      child: Text('${AppLocalizations.of(context)!.applicationTitle} v0.0.5'),
+                    ),
+                    ListTile(
+                        leading: const Icon(Meal.food),
+                        title: Text(AppLocalizations.of(context)!.refreshData),
+                        onTap: () {
+                          Provider.of<WeekPlan>(context, listen: false)
+                              .fetch()
+                              .then((value) => null);
+                          scaffoldKey.currentState?.closeDrawer();
+                        }),
+                    ListTile(
+                        leading: const Icon(Meal.arrow_back),
+                        title: Text(AppLocalizations.of(context)!.prevWeek),
+                        onTap: () => {prevWeek()}),
+                    ListTile(
+                        leading: const Icon(Meal.arrow_forward),
+                        title: Text(AppLocalizations.of(context)!.nextWeek),
+                        onTap: () => {nextWeek()}),
+                    ListTile(
+                        leading: const Icon(Meal.meat),
+                        title: Text(AppLocalizations.of(context)!.settings),
+                        onTap: () => {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute<void>(
+                                  builder: (BuildContext context) =>
+                                      const SettingScreen(),
+                                  fullscreenDialog: true,
+                                ),
+                              )
                             }),
-                        ListTile(
-                            leading: const Icon(Meal.arrow_back),
-                            title: const Text('Vorige week'),
-                            onTap: () => {prevWeek()}),
-                        ListTile (
-                            leading: const Icon(Meal.arrow_forward),
-                            title: const Text('Volgende week'),
-                            onTap: () => {nextWeek()}),
-                        ListTile (
-                            leading: const Icon(Meal.meat),
-                            title: const Text('Instellingen'),
-                            onTap: () => {
-                            Navigator.push(
-                            context,
-                              MaterialPageRoute<void>(
-                              builder: (BuildContext context) =>
-                                  const SettingScreen(),
-                              fullscreenDialog: true,
-                            ),)}),
-                      ],)
-                ),
+                  ],
+                )),
                 appBar: AppBar(
                   leading: IconButton(
-                    icon: const Icon(Meal.food),
-                    onPressed: () => scaffoldKey.currentState?.openDrawer()
-                  ),
+                      icon: const Icon(Meal.food),
+                      onPressed: () => scaffoldKey.currentState?.openDrawer()),
                   title: GestureDetector(
                     onDoubleTap: () => {currentWeek()},
                     child: Consumer<WeekPlan>(builder: (context, plan, child) {
                       String title =
-                          "Maaltijden week ${plan.week} ${plan.year}";
+                          "${AppLocalizations.of(context)!.mealsOfWeek} ${plan.week} ${plan.year}";
                       return Text(title);
                     }),
                   ),
                 ),
                 body: PageView.builder(
-                  itemBuilder: (context, position) {
-                    return Consumer<WeekPlan>(
-                      builder: (context, plan, child) {
-                        return DayOfWeeks(days: plan.plans[position].items);
-                      },
-                    );
-                  },
-                  controller: pageController,
-                  itemCount: 6,
-                  onPageChanged: (position) {
-                    Provider.of<WeekPlan>(context, listen: false).weekBaseOnPosition(position);
-                    }
-                ));
+                    itemBuilder: (context, position) {
+                      return Consumer<WeekPlan>(
+                        builder: (context, plan, child) {
+                          return DayOfWeeks(days: plan.plans[position].items);
+                        },
+                      );
+                    },
+                    controller: pageController,
+                    itemCount: 6,
+                    onPageChanged: (position) {
+                      Provider.of<WeekPlan>(context, listen: false)
+                          .weekBaseOnPosition(position);
+                    }));
           } else {
             return const Center(
               child: CircularProgressIndicator(),

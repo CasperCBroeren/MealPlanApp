@@ -3,6 +3,7 @@ import 'package:mealplan/models/meal_planned.dart';
 import 'package:mealplan/models/week_plan.dart';
 import 'package:mealplan/ui/meal_type_select.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class EditDayScreen extends StatelessWidget {
   EditDayScreen({required this.mealPlanned, Key? key}) : super(key: key)  {
@@ -26,7 +27,7 @@ class EditDayScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.lime,
-            title: Text('Plan voor ${mealPlanned.day}'),
+            title: Text('${AppLocalizations.of(context)!.planFor} ${mealPlanned.day}'),
             automaticallyImplyLeading: false),
         body: SingleChildScrollView(
             child: Container(
@@ -45,9 +46,9 @@ class EditDayScreen extends StatelessWidget {
                           onChanged: (text){
                             newDescription = text;
                           },
-                          decoration: const InputDecoration(
-                            border: UnderlineInputBorder(),
-                            labelText: 'Maaltijd beschrijving',
+                          decoration: InputDecoration(
+                            border: const UnderlineInputBorder(),
+                            labelText: AppLocalizations.of(context)!.mealDescription,
                           ),
                         ),
                         Padding(
@@ -55,16 +56,16 @@ class EditDayScreen extends StatelessWidget {
                             child: Center(
                                 child: ElevatedButton(
                                     onPressed: ()  {saveClick(context);},
-                                    child: const Text(
-                                      "Opslaan",
-                                      style: TextStyle(fontSize: 21),
+                                    child: Text(
+                                      AppLocalizations.of(context)!.save,
+                                      style: const TextStyle(fontSize: 21),
                                     )))),
                         Center(
                             child: TextButton(
                                 onPressed: () => {Navigator.pop(context)},
-                                child: const Text(
-                                  "<< Terug",
-                                  style: TextStyle(fontSize: 17),
+                                child: Text(
+                                  AppLocalizations.of(context)!.back,
+                                  style: const TextStyle(fontSize: 17),
                                 )))
                       ],
                     )))));

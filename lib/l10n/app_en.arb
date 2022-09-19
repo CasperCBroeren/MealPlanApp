@@ -1,0 +1,15 @@
+{
+  "planFor": "Plan for",
+  "mealDescription": "Meal description",
+  "save": "Save",
+  "back": "<< back",
+  "account": "Account",
+  "settings": "Settings",
+  "applicationTitle": "MealPlan",
+  "refreshData": "Refresh data",
+  "nextWeek": "Next week",
+  "prevWeek": "Previous week",
+  "mealsOfWeek": "Meals week ",
+  "failedToLoad": "Failed to load plans",
+  "generalError": "Something went wrong!"
+}

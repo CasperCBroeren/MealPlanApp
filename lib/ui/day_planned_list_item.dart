@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mealplan/ui/'
-    'meal_icons.dart';
+import 'package:mealplan/main.dart';
 import 'package:mealplan/models/meal_planned.dart';
 import 'package:mealplan/ui/edit_day_screen.dart';
-import 'package:mealplan/main.dart';
+import 'package:mealplan/ui/'
+    'meal_icons.dart';
 
 class DayPlannedListItem extends StatelessWidget {
   DayPlannedListItem({
