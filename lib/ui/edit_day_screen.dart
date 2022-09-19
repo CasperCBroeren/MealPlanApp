@@ -62,7 +62,7 @@ class EditDayScreenState extends State<EditDayScreen> {
 
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.lime,
+            backgroundColor: Colors.green.shade800,
             title: Text(
                 '${AppLocalizations.of(context)!.planFor} ${getDayTranslated(context, day)}'),
             automaticallyImplyLeading: false),

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mealplan/models/plan.dart';
 import 'package:mealplan/models/week_plan.dart';
 import 'package:mealplan/ui/days_of_week.dart';
 import 'package:mealplan/ui/meal_icons.dart';
 import 'package:mealplan/ui/settings_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WeekScreen extends StatelessWidget {
   const WeekScreen({Key? key}) : super(key: key);
@@ -42,13 +42,14 @@ class WeekScreen extends StatelessWidget {
                 key: scaffoldKey,
                 drawer: Drawer(
                     child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                      DrawerHeader(
+                    padding: EdgeInsets.zero,
+                    children: [
+                    DrawerHeader(
                       decoration: const BoxDecoration(
-                        color: Colors.lightGreen,
+                        color: Colors.green,
                       ),
-                      child: Text('${AppLocalizations.of(context)!.applicationTitle} v0.0.5'),
+                      child: Text(
+                          '${AppLocalizations.of(context)!.applicationTitle} v0.0.5'),
                     ),
                     ListTile(
                         leading: const Icon(Meal.food),
@@ -84,15 +85,14 @@ class WeekScreen extends StatelessWidget {
                 )),
                 appBar: AppBar(
                   leading: IconButton(
-                      icon: const Icon(Meal.food),
+                      icon: const Icon(Meal.food, color: Colors.black54),
                       onPressed: () => scaffoldKey.currentState?.openDrawer()),
                   title: GestureDetector(
                     onDoubleTap: () => {currentWeek()},
-                    child: Consumer<WeekPlan>(builder: (context, plan, child) {
-                      String title =
-                          "${AppLocalizations.of(context)!.mealsOfWeek} ${plan.week} ${plan.year}";
-                      return Text(title);
-                    }),
+                    child: Consumer<WeekPlan>(builder: (context, plan, child) =>
+                        Text("${AppLocalizations.of(context)!.mealsOfWeek} ${plan.week} ${plan.year}",
+                        style: const TextStyle(color: Colors.black54),)
+                    ),
                   ),
                 ),
                 body: PageView.builder(

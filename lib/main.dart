@@ -33,7 +33,7 @@ class MealPlanner extends StatelessWidget {
       theme: ThemeData(
           textTheme: GoogleFonts.montserratAlternatesTextTheme(
               Theme.of(context).textTheme),
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.lightGreen),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green),
           scaffoldBackgroundColor: Colors.lightGreen.shade50),
       initialRoute: '/',
       routes: {'/': (context) => const WeekScreen()},
