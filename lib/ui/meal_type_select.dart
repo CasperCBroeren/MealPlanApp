@@ -1,9 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:mealplan/ui/meal_icons.dart';
 
-class _MealTypeSelect extends State<MealTypeSelect> {
-  _MealTypeSelect(String initialSelectedType) {
-    selectedType = initialSelectedType;
+class MealTypeSelect extends StatefulWidget {
+  const MealTypeSelect({
+    required this.initialSelectedType,
+    required this.onChange,
+    Key? key,
+  }) : super(key: key);
+  final String initialSelectedType;
+  final Function(String type) onChange;
+
+  @override
+  State<MealTypeSelect> createState() => MealTypeSelectState();
+}
+
+
+class MealTypeSelectState extends State<MealTypeSelect> {
+  @override
+  initState() {
+    super.initState();
+    selectedType = widget.initialSelectedType;
   }
 
   String selectedType = "";
@@ -61,15 +77,3 @@ class _MealTypeSelect extends State<MealTypeSelect> {
   }
 }
 
-class MealTypeSelect extends StatefulWidget {
-  const MealTypeSelect({
-    required this.initialSelectedType,
-    required this.onChange,
-    Key? key,
-  }) : super(key: key);
-  final String initialSelectedType;
-  final Function(String type) onChange;
-
-  @override
-  State<MealTypeSelect> createState() => _MealTypeSelect(initialSelectedType);
-}

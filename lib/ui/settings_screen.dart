@@ -32,12 +32,13 @@ class SettingScreenState extends State<SettingScreen> {
     final formKey = GlobalKey<FormState>();
 
     void saveClick(BuildContext context) async {
+      final navigator = Navigator.of(context);
+      final weekPlanStore = Provider.of<WeekPlan>(context, listen: false);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("account", accountSetting);
-      Provider.of<WeekPlan>(context, listen: false)
-          .fetch()
-          .then((value) => null);
-      Navigator.pop(context);
+      await weekPlanStore.fetch();
+
+      navigator.pop();
     }
 
     return Scaffold(

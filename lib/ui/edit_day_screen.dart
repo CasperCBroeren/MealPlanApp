@@ -5,12 +5,27 @@ import 'package:mealplan/ui/meal_type_select.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class EditDayScreen extends StatelessWidget {
-  EditDayScreen({required this.mealPlanned, Key? key}) : super(key: key)  {
-    newDescription = mealPlanned.description;
-    newType = mealPlanned.type;
-  }
+class EditDayScreen extends StatefulWidget {
+  const EditDayScreen({required this.mealPlanned, Key? key}) : super(key: key);
+
   final MealPlanned mealPlanned;
+
+  @override
+  EditDayScreenState createState() => EditDayScreenState();
+}
+
+class EditDayScreenState extends  State<EditDayScreen> {
+  @override
+  void initState()
+  {
+    super.initState();
+    newDescription = widget.mealPlanned.description;
+    newType = widget.mealPlanned.type;
+    day = widget.mealPlanned.day;
+    date = widget.mealPlanned.date;
+  }
+  String day = "";
+  String date = "";
   String newDescription = '';
   String newType= '';
 
@@ -19,7 +34,7 @@ class EditDayScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     void saveClick(BuildContext context) async {
-       var newItem = MealPlanned(mealPlanned.day, mealPlanned.date, newType, newDescription);
+       var newItem = MealPlanned(day, date, newType, newDescription);
        Provider.of<WeekPlan>(context, listen: false).setItem(newItem);
        Navigator.pop(context);
     }
@@ -27,7 +42,7 @@ class EditDayScreen extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: Colors.lime,
-            title: Text('${AppLocalizations.of(context)!.planFor} ${mealPlanned.day}'),
+            title: Text('${AppLocalizations.of(context)!.planFor} $day'),
             automaticallyImplyLeading: false),
         body: SingleChildScrollView(
             child: Container(
@@ -37,12 +52,12 @@ class EditDayScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        MealTypeSelect(initialSelectedType: mealPlanned.type, onChange: (type) {
+                        MealTypeSelect(initialSelectedType: newType, onChange: (type) {
                           newType = type;
                         }),
                         TextFormField(
                           style: const TextStyle(fontSize: 21),
-                          initialValue: mealPlanned.description,
+                          initialValue: newDescription,
                           onChanged: (text){
                             newDescription = text;
                           },
