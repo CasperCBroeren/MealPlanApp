@@ -35,15 +35,25 @@ class WeekScreen extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Center(
-              child: Text(AppLocalizations.of(context)!.generalError),
-            );
+                child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Card(
+                        child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                          ListTile(
+                              leading: const Icon(Meal.meat),
+                              title: Text(
+                                  AppLocalizations.of(context)!.generalError),
+                              subtitle: Text(snapshot.error.toString()))
+                        ]))));
           } else if (snapshot.hasData) {
             return Scaffold(
                 key: scaffoldKey,
                 drawer: Drawer(
                     child: ListView(
-                    padding: EdgeInsets.zero,
-                    children: [
+                  padding: EdgeInsets.zero,
+                  children: [
                     DrawerHeader(
                       decoration: const BoxDecoration(
                         color: Colors.green,
@@ -89,10 +99,11 @@ class WeekScreen extends StatelessWidget {
                       onPressed: () => scaffoldKey.currentState?.openDrawer()),
                   title: GestureDetector(
                     onDoubleTap: () => {currentWeek()},
-                    child: Consumer<WeekPlan>(builder: (context, plan, child) =>
-                        Text("${AppLocalizations.of(context)!.mealsOfWeek} ${plan.week} ${plan.year}",
-                        style: const TextStyle(color: Colors.black54),)
-                    ),
+                    child: Consumer<WeekPlan>(
+                        builder: (context, plan, child) => Text(
+                              "${AppLocalizations.of(context)!.mealsOfWeek} ${plan.week} ${plan.year}",
+                              style: const TextStyle(color: Colors.black54),
+                            )),
                   ),
                 ),
                 body: PageView.builder(

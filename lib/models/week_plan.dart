@@ -30,7 +30,7 @@ class WeekPlan extends ChangeNotifier {
       notifyListeners();
       return _plans;
     }
-    throw Exception('Failed to load plans');
+    throw Exception('Failed to load plans ${response.statusCode}');
   }
 
   static int isoWeekNumber(DateTime date) {
