@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:mealplan/models/meal_planned.dart';
-import 'package:mealplan/models/week_plan.dart';
+import 'package:mealplan/models/week_plan_store.dart';
 import 'package:mealplan/ui/meal_type_select.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class EditDayScreenState extends State<EditDayScreen> {
 
     void saveClick(BuildContext context) async {
       var newItem = MealPlanned(day, date, newType, newDescription);
-      Provider.of<WeekPlan>(context, listen: false).setItem(newItem);
+      Provider.of<WeekPlanStore>(context, listen: false).setItem(newItem);
       Navigator.pop(context);
     }
 

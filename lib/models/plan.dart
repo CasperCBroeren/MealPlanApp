@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:mealplan/models/meal_planned.dart';
 
 class Plan {
@@ -12,5 +14,13 @@ class Plan {
     List<dynamic> items = json['items'];
     return Plan(json['week'],json['year'],  List<MealPlanned>.from(
         items.map((model) => MealPlanned.fromJson(model))));
+  }
+
+  Map<String, dynamic> toJson() {
+      return {
+        'week': week,
+        'year': year,
+        'items': jsonEncode(items)
+      };
   }
 }

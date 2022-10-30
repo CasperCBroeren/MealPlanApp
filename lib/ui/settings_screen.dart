@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mealplan/models/week_plan.dart';
+import 'package:mealplan/models/week_plan_store.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,10 +33,10 @@ class SettingScreenState extends State<SettingScreen> {
 
     void saveClick(BuildContext context) async {
       final navigator = Navigator.of(context);
-      final weekPlanStore = Provider.of<WeekPlan>(context, listen: false);
+      final weekPlanStore = Provider.of<WeekPlanStore>(context, listen: false);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString("account", accountSetting);
-      await weekPlanStore.fetch();
+      await weekPlanStore.fetchFromApi();
 
       navigator.pop();
     }

@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:mealplan/models/meal_planned.dart';
-import 'package:mealplan/models/week_plan.dart';
-import 'package:mealplan/ui/week_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:mealplan/models/meal_planned.dart';
+import 'package:mealplan/models/week_plan_store.dart';
+import 'package:mealplan/ui/week_screen.dart';
 import 'package:provider/provider.dart';
 
 typedef DayClickedCallBack = Function(MealPlanned mealPlanned);
 
-void main() {
+void main()  {
   runApp(ChangeNotifierProvider(
-      create: (context) => WeekPlan(), child: const MealPlanner()));
+      create: (context) => WeekPlanStore(), child: const MealPlanner()));
 }
 
 class MealPlanner extends StatelessWidget {

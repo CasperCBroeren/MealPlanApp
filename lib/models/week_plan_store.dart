@@ -8,25 +8,24 @@ import 'package:mealplan/models/meal_planned.dart';
 import 'package:mealplan/models/plan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
-class WeekPlan extends ChangeNotifier {
+class WeekPlanStore extends ChangeNotifier {
   final String defaultAccount = 'public';
 
-  Future<List<Plan>> fetch() async {
+  Future<List<Plan>> fetchFromApi() async {
     final prefs = await SharedPreferences.getInstance();
     final headers = {
       'x-account': prefs.getString('account') ?? defaultAccount,
       'Content-Type': 'application/json; charset=UTF-8',
     };
-    final response = await http
-        .get(Uri.parse('https://mealplaapi.azurewebsites.net/weekPlan'),
+    final response = await http.get(
+        Uri.parse('https://mealplaapi.azurewebsites.net/weekPlan'),
         headers: headers);
     if (response.statusCode == 200) {
-      Map<String, dynamic>  data = jsonDecode(response.body);
+      Map<String, dynamic> data = jsonDecode(response.body);
 
       List<dynamic> items = data['plans'];
-      _plans = List<Plan>.from(
-          items.map((model) => Plan.fromJson(model)));
+      _plans = List<Plan>.from(items.map((model) => Plan.fromJson(model)));
+
       notifyListeners();
       return _plans;
     }
@@ -45,34 +44,43 @@ class WeekPlan extends ChangeNotifier {
   static int dayOfYear(DateTime date) {
     return date.difference(DateTime(date.year, 1, 1)).inDays;
   }
+
   List<Plan> _plans = [];
   int year = DateTime.now().year;
   int week = isoWeekNumber(DateTime.now());
 
   UnmodifiableListView<Plan> get plans => UnmodifiableListView(_plans);
 
-  void setItem(MealPlanned item)  {
+  void setItem(MealPlanned item) {
     Plan plan = _plans.firstWhere((x) => x.week == week && x.year == year);
-    int indexOfDay = plan.items.indexWhere((element) => element.day == item.day);
+    int indexOfDay =
+        plan.items.indexWhere((element) => element.day == item.day);
     plan.items.removeAt(indexOfDay);
     plan.items.insert(indexOfDay, item);
 
-    SharedPreferences.getInstance().then((prefs) =>
-    {
-        http.put(Uri.parse('https://mealplaapi.azurewebsites.net/mealPlan'),
-                headers:  {
+    notifyListeners();
+
+    SharedPreferences.getInstance().then((prefs) => {
+          http
+              .put(Uri.parse('https://mealplaapi.azurewebsites.net/mealPlan'),
+                  headers: {
                     'x-account': prefs.getString('account') ?? defaultAccount,
                     'Content-Type': 'application/json; charset=UTF-8',
-                },
-                body: item.toJson())
-                    .then((response) => {
-                notifyListeners()
-                })});
-
+                  },
+                  body: item.toJson())
+              .then((response) {
+                saveToLocalStorage(prefs);
+              })
+        });
 
   }
 
-  void weekBaseOnPosition(int position)  {
+  void saveToLocalStorage(SharedPreferences prefs)
+  {
+    prefs.setString('localData', jsonEncode(_plans));
+  }
+
+  void weekBaseOnPosition(int position) {
     Plan plan = _plans[position];
     year = plan.year;
     week = plan.week;
