@@ -30,13 +30,15 @@ class WeekScreen extends StatelessWidget {
     void currentWeek() {
       pageController.jumpToPage(3);
     }
+    var store = Provider.of<WeekPlanStore>(context, listen: false);
+    store.loadFromLocalStorage();
 
     return FutureBuilder<List<Plan>>(
-        future: Provider.of<WeekPlanStore>(context, listen: false).fetchFromApi(),
+        future: store.fetchFromApi(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return ErrorScreen(message: snapshot.error.toString());
-          } else if (snapshot.hasData) {
+          } else {
             return Scaffold(
                 key: scaffoldKey,
                 drawer: Drawer(
@@ -109,10 +111,6 @@ class WeekScreen extends StatelessWidget {
                       Provider.of<WeekPlanStore>(context, listen: false)
                           .weekBaseOnPosition(position);
                     }));
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
           }
         });
   }

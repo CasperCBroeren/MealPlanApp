@@ -22,6 +22,4 @@ class MealPlanned {
   factory MealPlanned.fromJson(dynamic json) {
     return MealPlanned(json['day'], json['date'], json['type'],json['description']);
   }
-
-
 }

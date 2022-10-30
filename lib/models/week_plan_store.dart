@@ -25,11 +25,11 @@ class WeekPlanStore extends ChangeNotifier {
 
       List<dynamic> items = data['plans'];
       _plans = List<Plan>.from(items.map((model) => Plan.fromJson(model)));
-
+      saveToLocalStorage(prefs);
       notifyListeners();
       return _plans;
     }
-    throw Exception('Failed to load plans ${response.statusCode}');
+    throw Exception('Failed to   load plans ${response.statusCode}');
   }
 
   static int isoWeekNumber(DateTime date) {
@@ -58,8 +58,6 @@ class WeekPlanStore extends ChangeNotifier {
     plan.items.removeAt(indexOfDay);
     plan.items.insert(indexOfDay, item);
 
-    notifyListeners();
-
     SharedPreferences.getInstance().then((prefs) => {
           http
               .put(Uri.parse('https://mealplaapi.azurewebsites.net/mealPlan'),
@@ -69,7 +67,7 @@ class WeekPlanStore extends ChangeNotifier {
                   },
                   body: item.toJson())
               .then((response) {
-                saveToLocalStorage(prefs);
+                fetchFromApi().then((value) => null);
               })
         });
 
@@ -78,6 +76,15 @@ class WeekPlanStore extends ChangeNotifier {
   void saveToLocalStorage(SharedPreferences prefs)
   {
     prefs.setString('localData', jsonEncode(_plans));
+  }
+
+  void loadFromLocalStorage()
+  {
+    SharedPreferences.getInstance().then((prefs) {
+      List<dynamic> items = jsonDecode(prefs.getString('localData')!);
+      _plans = List<Plan>.from(items.map((model) => Plan.fromJsonInternal(model)));
+
+    });
   }
 
   void weekBaseOnPosition(int position) {

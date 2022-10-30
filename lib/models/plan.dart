@@ -16,6 +16,12 @@ class Plan {
         items.map((model) => MealPlanned.fromJson(model))));
   }
 
+  factory Plan.fromJsonInternal(dynamic json) {
+    List<dynamic> items = jsonDecode(json['items']);
+    return Plan(json['week'],json['year'],  List<MealPlanned>.from(
+        items.map((model) => MealPlanned.fromJson(jsonDecode(model)))));
+  }
+
   Map<String, dynamic> toJson() {
       return {
         'week': week,
