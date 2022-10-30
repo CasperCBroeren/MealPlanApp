@@ -11,7 +11,10 @@ typedef DayClickedCallBack = Function(MealPlanned mealPlanned);
 
 void main()  {
   runApp(ChangeNotifierProvider(
-      create: (context) => WeekPlanStore(), child: const MealPlanner()));
+      create: (context) {
+        var store = WeekPlanStore();
+        store.loadFromLocalStorage();
+        return store;}, child: const MealPlanner()));
 }
 
 class MealPlanner extends StatelessWidget {

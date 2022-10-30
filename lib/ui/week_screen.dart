@@ -31,7 +31,6 @@ class WeekScreen extends StatelessWidget {
       pageController.jumpToPage(3);
     }
     var store = Provider.of<WeekPlanStore>(context, listen: false);
-    store.loadFromLocalStorage();
 
     return FutureBuilder<List<Plan>>(
         future: store.fetchFromApi(),

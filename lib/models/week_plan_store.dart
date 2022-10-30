@@ -45,7 +45,14 @@ class WeekPlanStore extends ChangeNotifier {
     return date.difference(DateTime(date.year, 1, 1)).inDays;
   }
 
-  List<Plan> _plans = [];
+  List<Plan> _plans = [
+    const Plan(1, 2022, []),
+    const Plan(2, 2022, []),
+    const Plan(3, 2022, []),
+    const Plan(4, 2022, []),
+    const Plan(5, 2022, []),
+    const Plan(6, 2022, [])
+  ];
   int year = DateTime.now().year;
   int week = isoWeekNumber(DateTime.now());
 
@@ -67,23 +74,20 @@ class WeekPlanStore extends ChangeNotifier {
                   },
                   body: item.toJson())
               .then((response) {
-                fetchFromApi().then((value) => null);
-              })
+            fetchFromApi().then((value) => null);
+          })
         });
-
   }
 
-  void saveToLocalStorage(SharedPreferences prefs)
-  {
+  void saveToLocalStorage(SharedPreferences prefs) {
     prefs.setString('localData', jsonEncode(_plans));
   }
 
-  void loadFromLocalStorage()
-  {
+  void loadFromLocalStorage() {
     SharedPreferences.getInstance().then((prefs) {
       List<dynamic> items = jsonDecode(prefs.getString('localData')!);
-      _plans = List<Plan>.from(items.map((model) => Plan.fromJsonInternal(model)));
-
+      _plans =
+          List<Plan>.from(items.map((model) => Plan.fromJsonInternal(model)));
     });
   }
 
